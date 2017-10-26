@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -49,6 +52,18 @@ public class HelloController {
       
       if (!this.template.hasKey(key)) {
           ops.set(key,value);
+      }
+      // Return the string from your cache.
+      return ops.get(key);
+   }
+   
+   @RequestMapping("/expirekey/{key}")
+   // Define the Hello World controller.
+   public String expirekey(@PathVariable(value="key") String key,@RequestParam(value="val") String value) {
+	   ValueOperations<String, String> ops = this.template.opsForValue();
+
+	   if (this.template.hasKey(key)) {
+    	  this.template.expire(key,Integer.parseInt(value) ,TimeUnit.SECONDS);
       }
       // Return the string from your cache.
       return ops.get(key);

@@ -1,4 +1,4 @@
-package com.redisexample.demo;
+package com.azure.redisexample.azurejavarediscachesample.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ public class HelloController {
    @Autowired
    private StringRedisTemplate template;
 
-   @RequestMapping("/hello")
+   @RequestMapping("/")
    // Define the Hello World controller.
    public String hello() {
    
